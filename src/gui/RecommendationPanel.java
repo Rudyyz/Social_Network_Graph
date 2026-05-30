@@ -1,11 +1,10 @@
 package gui;
 
-import model.SocialNetwork;
-import util.Theme;
-
-import javax.swing.*;
 import java.awt.*;
 import java.util.Set;
+import javax.swing.*;
+import model.SocialNetwork;
+import util.Theme;
 
 public class RecommendationPanel extends JPanel {
 
@@ -29,96 +28,83 @@ public class RecommendationPanel extends JPanel {
 
         JPanel card = new JPanel();
         card.setBackground(Theme.CARD);
-        card.setPreferredSize(new Dimension(650, 450));
+        card.setPreferredSize(new Dimension(700, 480));
+        card.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createEmptyBorder(20, 20, 20, 20),
+                BorderFactory.createLineBorder(new Color(80, 80, 80), 1)
+        ));
         card.setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10,10,10,10);
+        gbc.insets = new Insets(12, 12, 12, 12);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        JLabel title =
-                new JLabel("Friend Recommendation");
-
-        title.setFont(Theme.TITLE);
+        JLabel title = new JLabel("Friend Recommendation");
+        title.setFont(new Font("Segoe UI", Font.BOLD, 28));
         title.setForeground(Color.WHITE);
 
-        JLabel userLabel =
-                new JLabel("Select User");
+        JLabel subtitle = new JLabel("Discover new people based on your social graph.");
+        subtitle.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        subtitle.setForeground(new Color(200, 200, 200));
 
+        JLabel userLabel = new JLabel("Select User");
         userLabel.setForeground(Color.WHITE);
         userLabel.setFont(Theme.NORMAL);
 
         userBox = new JComboBox<>();
-        userBox.setPreferredSize(
-                new Dimension(220,30)
-        );
+        userBox.setPreferredSize(new Dimension(260, 34));
+        userBox.setBackground(new Color(40, 40, 40));
+        userBox.setForeground(Color.WHITE);
+        userBox.setFont(Theme.NORMAL);
 
-        JButton generateButton =
-                new JButton("Generate Recommendation");
-
-        generateButton.setBackground(
-                Theme.PRIMARY
-        );
-
-        generateButton.setForeground(
-                Color.WHITE
-        );
-
+        JButton generateButton = new JButton("Generate Recommendation");
+        generateButton.setBackground(Theme.PRIMARY);
+        generateButton.setForeground(Color.WHITE);
         generateButton.setFocusPainted(false);
+        generateButton.setFont(Theme.NORMAL);
+        generateButton.setBorder(BorderFactory.createEmptyBorder(10, 18, 10, 18));
 
-        generateButton.setFont(
-                Theme.NORMAL
-        );
-
-        resultArea = new JTextArea(12,30);
-
+        resultArea = new JTextArea(14, 34);
         resultArea.setEditable(false);
+        resultArea.setBackground(new Color(20, 20, 20));
+        resultArea.setForeground(Color.WHITE);
+        resultArea.setFont(new Font("Consolas", Font.PLAIN, 14));
+        resultArea.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(80, 80, 80)),
+                BorderFactory.createEmptyBorder(12, 12, 12, 12)
+        ));
 
-        resultArea.setBackground(
-                new Color(30,30,30)
-        );
+        JScrollPane scrollPane = new JScrollPane(resultArea);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        scrollPane.setBackground(new Color(20, 20, 20));
 
-        resultArea.setForeground(
-                Color.WHITE
-        );
-
-        resultArea.setFont(
-                new Font(
-                        "Consolas",
-                        Font.PLAIN,
-                        14
-                )
-        );
-
-        JScrollPane scrollPane =
-                new JScrollPane(resultArea);
-
-        generateButton.addActionListener(
-                e -> generateRecommendation()
-        );
+        generateButton.addActionListener(e -> generateRecommendation());
 
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
-
+        gbc.anchor = GridBagConstraints.WEST;
         card.add(title, gbc);
 
         gbc.gridy = 1;
-        gbc.gridwidth = 1;
+        card.add(subtitle, gbc);
 
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
         card.add(userLabel, gbc);
 
         gbc.gridx = 1;
-
         card.add(userBox, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         gbc.gridwidth = 2;
-
         card.add(generateButton, gbc);
 
-        gbc.gridy = 3;
-
+        gbc.gridy = 4;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.fill = GridBagConstraints.BOTH;
         card.add(scrollPane, gbc);
 
         add(card);
