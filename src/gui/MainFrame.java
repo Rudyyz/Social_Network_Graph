@@ -18,7 +18,8 @@ public class MainFrame extends JFrame {
     private FriendshipPanel friendshipPanel;
     private MutualFriendPanel mutualPanel;
     private RecommendationPanel recommendationPanel;
-    private PathPanel pathPanel;
+    private BFSPathPanel pathPanel;
+    private DFSPathPanel dfsPathPanel;
     private GraphPanel graphPanel;
 
     public MainFrame() {
@@ -60,7 +61,7 @@ public class MainFrame extends JFrame {
         );
 
         sidebar.setLayout(
-                new GridLayout(8,1,10,10)
+                new GridLayout(9,1,10,10)
         );
 
         JButton dashboardBtn =
@@ -81,6 +82,9 @@ public class MainFrame extends JFrame {
         JButton pathBtn =
                 createButton("Path BFS");
 
+        JButton dfsPathBtn =
+                createButton("Path DFS");
+
         JButton graphBtn =
                 createButton("Graph View");
 
@@ -90,6 +94,7 @@ public class MainFrame extends JFrame {
         sidebar.add(mutualBtn);
         sidebar.add(recommendationBtn);
         sidebar.add(pathBtn);
+        sidebar.add(dfsPathBtn);
         sidebar.add(graphBtn);
 
         add(sidebar, BorderLayout.WEST);
@@ -116,6 +121,10 @@ public class MainFrame extends JFrame {
 
         pathBtn.addActionListener(
                 e -> showPage("path")
+        );
+
+        dfsPathBtn.addActionListener(
+                e -> showPage("dfsPath")
         );
 
         graphBtn.addActionListener(
@@ -175,7 +184,10 @@ public class MainFrame extends JFrame {
                 new RecommendationPanel(network);
 
         pathPanel =
-                new PathPanel(network);
+                new BFSPathPanel(network);
+
+        dfsPathPanel =
+                new DFSPathPanel(network);
 
         addUserPanel =
                 new AddUserPanel(
@@ -184,6 +196,7 @@ public class MainFrame extends JFrame {
                         mutualPanel,
                         recommendationPanel,
                         pathPanel,
+                        dfsPathPanel,
                         dashboardPanel,
                         graphPanel
                 );
@@ -216,6 +229,11 @@ public class MainFrame extends JFrame {
         contentPanel.add(
                 pathPanel,
                 "path"
+        );
+
+        contentPanel.add(
+                dfsPathPanel,
+                "dfsPath"
         );
 
         contentPanel.add(

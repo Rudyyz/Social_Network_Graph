@@ -13,7 +13,8 @@ public class AddUserPanel extends JPanel {
     private FriendshipPanel friendshipPanel;
     private MutualFriendPanel mutualPanel;
     private RecommendationPanel recommendationPanel;
-    private PathPanel pathPanel;
+    private BFSPathPanel pathPanel;
+    private DFSPathPanel dfsPathPanel;
 
     private DashboardPanel dashboardPanel;
     private GraphPanel graphPanel;
@@ -25,7 +26,8 @@ public class AddUserPanel extends JPanel {
             FriendshipPanel friendshipPanel,
             MutualFriendPanel mutualPanel,
             RecommendationPanel recommendationPanel,
-            PathPanel pathPanel,
+            BFSPathPanel pathPanel,
+            DFSPathPanel dfsPathPanel,
             DashboardPanel dashboardPanel,
             GraphPanel graphPanel) {
 
@@ -35,6 +37,7 @@ public class AddUserPanel extends JPanel {
         this.mutualPanel = mutualPanel;
         this.recommendationPanel = recommendationPanel;
         this.pathPanel = pathPanel;
+        this.dfsPathPanel = dfsPathPanel;
 
         this.dashboardPanel = dashboardPanel;
         this.graphPanel = graphPanel;
@@ -119,6 +122,7 @@ public class AddUserPanel extends JPanel {
             mutualPanel.refreshUsers();
             recommendationPanel.refreshUsers();
             pathPanel.refreshUsers();
+            dfsPathPanel.refreshUsers();
 
             dashboardPanel.updateData();
 

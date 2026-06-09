@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public class PathPanel extends JPanel {
+public class BFSPathPanel extends JPanel {
 
     private SocialNetwork network;
 
@@ -17,7 +17,7 @@ public class PathPanel extends JPanel {
 
     private JTextArea resultArea;
 
-    public PathPanel(SocialNetwork network) {
+    public BFSPathPanel(SocialNetwork network) {
 
         this.network = network;
 
@@ -105,6 +105,7 @@ public class PathPanel extends JPanel {
 
         JScrollPane scrollPane =
                 new JScrollPane(resultArea);
+
         scrollPane.setPreferredSize(
                 new Dimension(500,220)
         );
@@ -182,26 +183,20 @@ public class PathPanel extends JPanel {
             return;
         }
 
-        List<String> path =
+        BFS.BFSResult bfsResult =
                 BFS.findPath(
                         network.getGraph(),
                         start,
                         end
                 );
 
+        List<String> path =
+                bfsResult.getPath();
+
+        List<String> visitedOrder =
+                bfsResult.getVisitedOrder();
+
         resultArea.setText("");
-
-        if(path == null || path.isEmpty()) {
-
-            resultArea.setText(
-                    "=== BFS CONNECTION PATH ===\n\n" +
-                            "From : " + start + "\n" +
-                            "To   : " + end + "\n\n" +
-                            "Tidak ada jalur koneksi."
-            );
-
-            return;
-        }
 
         StringBuilder result = new StringBuilder();
 
@@ -209,7 +204,29 @@ public class PathPanel extends JPanel {
         result.append("From : ").append(start).append("\n");
         result.append("To   : ").append(end).append("\n\n");
 
-        result.append("Shortest Path:\n\n");
+        result.append("Alur Pencarian BFS:\n\n");
+
+        for(int i = 0; i < visitedOrder.size(); i++) {
+
+            result.append(visitedOrder.get(i));
+
+            if(i < visitedOrder.size() - 1) {
+                result.append(" -> ");
+            }
+        }
+
+        result.append("\n\n");
+
+        if(path == null || path.isEmpty()) {
+
+            result.append("Shortest Path BFS:\n\n");
+            result.append("Tidak ada jalur koneksi.");
+
+            resultArea.setText(result.toString());
+            return;
+        }
+
+        result.append("Shortest Path BFS:\n\n");
 
         for(int i = 0; i < path.size(); i++) {
 
